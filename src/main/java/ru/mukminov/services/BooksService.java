@@ -1,6 +1,8 @@
 package ru.mukminov.services;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import ru.mukminov.models.Book;
@@ -62,5 +64,10 @@ public class BooksService {
 
     public Person getBookOwner(int id) {
         return findOne(id).getOwner();
+    }
+
+    // пагинация:
+    public List<Book> pageable(int page, int itemsPerPage) {
+        return booksRepository.findAll(PageRequest.of(page, itemsPerPage)).getContent();
     }
 }
