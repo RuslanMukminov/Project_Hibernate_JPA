@@ -80,4 +80,9 @@ public class BooksService {
     public List<Book> pageableSortByYear(int page, int itemsPerPage) {
         return booksRepository.findAll(PageRequest.of(page, itemsPerPage, Sort.by("year"))).getContent();
     }
+
+    // функция поиска книги по названию:
+    public List<Book> searchByTitleStartingWith(String startingWith) {
+        return booksRepository.findByTitleStartingWith(startingWith);
+    }
 }

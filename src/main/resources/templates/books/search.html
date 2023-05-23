@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/html">
+<head>
+    <meta charset="UTF-8">
+    <title>Поиск книги</title>
+</head>
+<body>
+
+<form th:method="GET" th:action="@{search}">
+    <label for="start_with">Поиск по названию книги: </label>
+    <input type="text" id="start_with" th:name="start_with"/>
+    <br/>
+    <input type="submit" value="Искать!"/>
+</form>
+<hr/>
+<div th:if="${not #lists.isEmpty(books)}"
+    th:each="book : ${books}">
+    <span th:text="${book.getTitle() + ', ' + book.getAuthor() + ', ' + book.getYear()}">book</span>
+
+</div>
+
+<div th:if="${#lists.isEmpty(books)}">
+        <span>Нет результатов поиска</span>
+</div>
+
+</body>
+</html>

@@ -13,4 +13,7 @@ public interface BooksRepository extends JpaRepository<Book, Integer> {
     List<Book> findByOwner(Person owner);
 
     List<Book> findByTitle(String title);
+
+    // функция поиска книги по названию:
+    List<Book> findByTitleStartingWith (String startingWith);
 }

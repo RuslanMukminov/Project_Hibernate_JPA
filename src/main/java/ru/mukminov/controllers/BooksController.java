@@ -106,4 +106,15 @@ public class BooksController {
         booksService.assign(id, selectedPerson);
         return "redirect:/books/" + id;
     }
+
+    // функция поиска книги по названию:
+    @GetMapping("/search")
+    public String search(@RequestParam(required = false, name = "start_with") String startWith,
+                         Model model) {
+        if (startWith != null) {
+            model.addAttribute("books", booksService.searchByTitleStartingWith(startWith));
+        }
+
+        return "books/search";
+    }
 }
