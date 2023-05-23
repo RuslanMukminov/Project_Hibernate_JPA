@@ -1,6 +1,7 @@
 package ru.mukminov.services;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import ru.mukminov.models.Book;
@@ -62,5 +63,9 @@ public class BooksService {
 
     public Person getBookOwner(int id) {
         return findOne(id).getOwner();
+    }
+
+    public List<Book> sortByYear() {
+        return booksRepository.findAll(Sort.by("year"));
     }
 }
