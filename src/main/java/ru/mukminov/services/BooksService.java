@@ -1,8 +1,8 @@
 package ru.mukminov.services;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import ru.mukminov.models.Book;
@@ -69,5 +69,15 @@ public class BooksService {
     // пагинация:
     public List<Book> pageable(int page, int itemsPerPage) {
         return booksRepository.findAll(PageRequest.of(page, itemsPerPage)).getContent();
+    }
+
+    // сортировка книг по году:
+    public List<Book> sortByYear() {
+        return booksRepository.findAll(Sort.by("year"));
+    }
+
+    // пагинация + сортировка:
+    public List<Book> pageableSortByYear(int page, int itemsPerPage) {
+        return booksRepository.findAll(PageRequest.of(page, itemsPerPage, Sort.by("year"))).getContent();
     }
 }

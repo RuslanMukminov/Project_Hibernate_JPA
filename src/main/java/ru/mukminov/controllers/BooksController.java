@@ -27,13 +27,19 @@ public class BooksController {
     @GetMapping()
     public String index(Model model,
                         @RequestParam(required = false, name = "page") Integer page,
-                        @RequestParam(required = false, name = "books_per_page") Integer itemPerPage) {
+                        @RequestParam(required = false, name = "books_per_page") Integer itemPerPage,
+                        @RequestParam(required = false, name = "sort_by_year") String sortByYear) {
 
-        if (page != null & itemPerPage != null) {
+        if (page != null & sortByYear != null) {
+            model.addAttribute("books", booksService.pageableSortByYear(page, itemPerPage));
+        } else if (page != null & sortByYear == null) {
             model.addAttribute("books", booksService.pageable(page, itemPerPage));
+        } else if (page == null & sortByYear != null) {
+            model.addAttribute("books", booksService.sortByYear());
         } else {
             model.addAttribute("books", booksService.findAll());
         }
+
         return "books/index";
     }
 
