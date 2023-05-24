@@ -12,16 +12,21 @@
     <br/>
     <input type="submit" value="Искать!"/>
 </form>
+
+<div th:if="${#lists.isEmpty(books)}">
+    <p>Нет результатов поиска</p>
+</div>
+
 <hr/>
+
 <div th:if="${not #lists.isEmpty(books)}"
     th:each="book : ${books}">
     <p th:text="${book.getTitle() + ', ' + book.getAuthor() + ', ' + book.getYear()}">book</p>
-    <p th:if="${book.getOwner()}">Книга занята</p>
+    <p th:if="${book.getOwner() != null}"
+        th:text="${'Книга у ' + book.getOwner().getFullName()}">Person name</p>
+    <p th:if="${book.getOwner() == null}">Книга свободна</p>
+    <hr/>
 
-</div>
-
-<div th:if="${#lists.isEmpty(books)}">
-        <p>Нет результатов поиска</p>
 </div>
 
 </body>
