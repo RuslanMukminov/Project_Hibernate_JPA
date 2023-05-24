@@ -15,12 +15,13 @@
 <hr/>
 <div th:if="${not #lists.isEmpty(books)}"
     th:each="book : ${books}">
-    <span th:text="${book.getTitle() + ', ' + book.getAuthor() + ', ' + book.getYear()}">book</span>
+    <p th:text="${book.getTitle() + ', ' + book.getAuthor() + ', ' + book.getYear()}">book</p>
+    <p th:if="${book.getOwner()}">Книга занята</p>
 
 </div>
 
 <div th:if="${#lists.isEmpty(books)}">
-        <span>Нет результатов поиска</span>
+        <p>Нет результатов поиска</p>
 </div>
 
 </body>
