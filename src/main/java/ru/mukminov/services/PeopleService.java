@@ -8,8 +8,10 @@ import ru.mukminov.models.Person;
 import ru.mukminov.repositories.BooksRepository;
 import ru.mukminov.repositories.PeopleRepository;
 
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
+import java.util.concurrent.TimeUnit;
 
 @Service
 @Transactional(readOnly = true)
@@ -55,6 +57,17 @@ public class PeopleService {
 
     public List<Book> getBooksByPersonId(int id) {
         Person owner = findOne(id);
-        return booksRepository.findByOwner(owner);
+        List<Book> books = booksRepository.findByOwner(owner);
+        Date currentDate = new Date();
+
+        for (Book book : books) {
+            long diffInMillies = Math.abs(currentDate.getTime() - book.getAssignAt().getTime());
+            long diff = TimeUnit.DAYS.convert(diffInMillies, TimeUnit.MILLISECONDS);
+//            int days = (int) (diff / (1000 * 60 * 60 * 24));
+            if (diff > 10) {
+                book.setOverdue(true);
+            }
+        }
+        return books;
     }
 }

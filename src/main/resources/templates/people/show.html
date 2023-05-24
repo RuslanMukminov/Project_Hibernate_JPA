@@ -18,8 +18,11 @@
   <b>Книги:</b>
   <br/>
   <table th:each="book : ${books}">
-  <tr><a th:href="@{/books/{id}(id=${book.getId()})}"
-         th:text="${book.getTitle() + ', ' + book.getAuthor() + ', ' + book.getYear()}">book</a></tr>
+  <tr th:style="${book.isOverdue()}? 'background-color: red':''">
+    <th>
+      <a th:href="@{/books/{id}(id=${book.getId()})}"
+         th:text="${book.getTitle() + ', ' + book.getAuthor() + ', ' + book.getYear()}">book</a>
+    </th>
   </table>
   <hr/>
 </div>

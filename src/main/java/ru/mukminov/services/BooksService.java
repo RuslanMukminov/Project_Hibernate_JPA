@@ -9,6 +9,7 @@ import ru.mukminov.models.Book;
 import ru.mukminov.models.Person;
 import ru.mukminov.repositories.BooksRepository;
 
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -52,6 +53,7 @@ public class BooksService {
     public void assign(int id, Person selectedPerson) {
         Book book = findOne(id);
         book.setOwner(selectedPerson);
+        book.setAssignAt(new Date());
         save(book);
     }
 
@@ -59,6 +61,7 @@ public class BooksService {
     public void release(int id) {
         Book book = findOne(id);
         book.setOwner(null);
+        book.setAssignAt(null);
         save(book);
     }
 
