@@ -28,16 +28,12 @@ public class BooksController {
     public String index(Model model,
                         @RequestParam(required = false, name = "page") Integer page,
                         @RequestParam(required = false, name = "books_per_page") Integer itemPerPage,
-                        @RequestParam(required = false, name = "sort_by_year") String sortByYear) {
+                        @RequestParam(required = false, name = "sort_by_year") boolean sortByYear) {
 
-        if (page != null & sortByYear != null) {
-            model.addAttribute("books", booksService.pageableSortByYear(page, itemPerPage));
-        } else if (page != null & sortByYear == null) {
-            model.addAttribute("books", booksService.pageable(page, itemPerPage));
-        } else if (page == null & sortByYear != null) {
-            model.addAttribute("books", booksService.sortByYear());
+        if (page == null) {
+            model.addAttribute("books", booksService.findAll(sortByYear));
         } else {
-            model.addAttribute("books", booksService.findAll());
+            model.addAttribute("books", booksService.pageableSortByYear(page, itemPerPage, sortByYear));
         }
 
         return "books/index";

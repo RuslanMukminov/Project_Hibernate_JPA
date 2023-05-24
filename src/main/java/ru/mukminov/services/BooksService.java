@@ -24,8 +24,12 @@ public class BooksService {
         this.booksRepository = booksRepository;
     }
 
-    public List<Book> findAll() {
-        return booksRepository.findAll();
+    public List<Book> findAll(boolean sortByYear) {
+        if (sortByYear) {
+            return booksRepository.findAll(Sort.by("year"));
+        } else {
+            return booksRepository.findAll();
+        }
     }
 
     public Book findOne(int id) {
@@ -74,14 +78,13 @@ public class BooksService {
         return booksRepository.findAll(PageRequest.of(page, itemsPerPage)).getContent();
     }
 
-    // сортировка книг по году:
-    public List<Book> sortByYear() {
-        return booksRepository.findAll(Sort.by("year"));
-    }
-
     // пагинация + сортировка:
-    public List<Book> pageableSortByYear(int page, int itemsPerPage) {
-        return booksRepository.findAll(PageRequest.of(page, itemsPerPage, Sort.by("year"))).getContent();
+    public List<Book> pageableSortByYear(int page, int itemsPerPage, boolean sortByYear) {
+        if (sortByYear) {
+            return booksRepository.findAll(PageRequest.of(page, itemsPerPage, Sort.by("year"))).getContent();
+        } else {
+            return booksRepository.findAll(PageRequest.of(page, itemsPerPage)).getContent();
+        }
     }
 
     // функция поиска книги по названию:
