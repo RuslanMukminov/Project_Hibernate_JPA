@@ -1,6 +1,6 @@
 # Техническое задание для проекта "цифровой учет книг"
 
-За основу взят [Проект №1](https://github.com), который переписан с использованием Hibernate и Spring Data JPA.
+За основу взят [Проект №1](https://github.com/RuslanMukminov/Test_SpringMVC_JDBC-Template), который переписан с использованием Hibernate и Spring Data JPA.
 
 ## Новый функционал: 
 1) Пагинация для книг.
