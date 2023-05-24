@@ -55,6 +55,7 @@ public class PeopleService {
                 .stream().findAny();
     }
 
+    // добавил проверку просрочки книги (более 10 дней):
     public List<Book> getBooksByPersonId(int id) {
         Person owner = findOne(id);
         List<Book> books = booksRepository.findByOwner(owner);
@@ -63,7 +64,6 @@ public class PeopleService {
         for (Book book : books) {
             long diffInMillies = Math.abs(currentDate.getTime() - book.getAssignAt().getTime());
             long diff = TimeUnit.DAYS.convert(diffInMillies, TimeUnit.MILLISECONDS);
-//            int days = (int) (diff / (1000 * 60 * 60 * 24));
             if (diff > 10) {
                 book.setOverdue(true);
             }
