@@ -11,7 +11,7 @@ import java.util.Optional;
 @Repository
 public interface BooksRepository extends JpaRepository<Book, Integer> {
     List<Book> findByOwner(Person owner);
-    
+
     // функция поиска книги по названию:
     List<Book> findByTitleStartingWith (String startingWith);
 }
