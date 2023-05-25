@@ -72,7 +72,7 @@ public class BooksService {
     public Person getBookOwner(int id) {
         return findOne(id).getOwner();
     }
-    
+
     // пагинация + сортировка:
     public List<Book> pageableSortByYear(int page, int itemsPerPage, boolean sortByYear) {
         if (sortByYear) {
